@@ -53,6 +53,10 @@ typedef enum {
 #define USBLINK_TASK_PRI        3
 #define USBLINK_TASK_STACKSIZE  configMINIMAL_STACK_SIZE
 
+#define CONTROLLER_TASK_NAME	"CONTROLLER"
+#define CONTROLLER_TASK_PRI		3
+#define CONTROLLER_TASK_STACKSIZE configMINIMAL_STACK_SIZE
+
 #ifdef __cplusplus
 }
 #endif

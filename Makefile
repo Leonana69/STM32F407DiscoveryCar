@@ -90,7 +90,8 @@ Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c \
 Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c
 
 VPATH += Core/Src
-C_SOURCES += car_driver.c _usart.c debug.c system.c crtp.c cfassert.c static_mem.c usblink.c
+C_SOURCES += car_driver.c _usart.c debug.c system.c crtp.c cfassert.c static_mem.c usblink.c \
+	controller.c
 
 # ASM sources
 ASM_SOURCES =  \

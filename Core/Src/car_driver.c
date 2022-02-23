@@ -8,6 +8,8 @@ typedef struct {
 	uint32_t channel[2];
 } MotorTim;
 
+static int thrustBase = 18000;
+
 static MotorTim motorTim[4] = {
 	{
 		.tim = { &MOTOR1_F_TIM, &MOTOR1_B_TIM },
@@ -88,4 +90,25 @@ void carStart(){
 void carStop() {
 	for (int i = 0; i < MOTOR_NBR; i++)
 		motorSetRatio(i, 0);
+}
+
+
+
+void carSet(setpoint_t *sp) {
+	int motorValue[MOTOR_NBR] = { 0 };
+	motorValue[0] = sp->thrust * (sp->pitch + sp->roll - sp->yaw);
+	motorValue[1] = sp->thrust * (sp->pitch - sp->roll - sp->yaw);
+	motorValue[2] = sp->thrust * (sp->pitch + sp->roll + sp->yaw);
+	motorValue[3] = sp->thrust * (sp->pitch - sp->roll + sp->yaw);
+	for (int i = 0; i < MOTOR_NBR; i++) {
+		if (motorValue[i] > 0) {
+			motorValue[i] += thrustBase;
+			if (motorValue[i] > MOTOR_MAX_THRUST) motorValue[i] = MOTOR_MAX_THRUST;
+		}
+		else {
+			motorValue[i] -= thrustBase;
+			if (motorValue[i] < -MOTOR_MAX_THRUST) motorValue[i] = -MOTOR_MAX_THRUST;
+		}
+		motorSetRatio(i, motorValue[i]);
+	}
 }
