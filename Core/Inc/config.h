@@ -33,6 +33,26 @@ typedef enum {
 #define MOTOR4_F_CHANNEL TIM_CHANNEL_3
 #define MOTOR4_B_CHANNEL TIM_CHANNEL_4
 
+#define debugUart       huart2
+
+
+#define SYSTEM_TASK_STACKSIZE   (2 * configMINIMAL_STACK_SIZE)
+#define SYSTEM_TASK_PRI         2
+#define SYSTEM_TASK_NAME        "SYSTEM"
+
+#define CRTP_TX_TASK_NAME       "CRTP-TX"
+#define CRTP_RX_TASK_NAME       "CRTP-RX"
+#define CRTP_RXTX_TASK_NAME     "CRTP-RXTX"
+#define CRTP_TX_TASK_PRI        2
+#define CRTP_RX_TASK_PRI        2
+#define CRTP_TX_TASK_STACKSIZE        configMINIMAL_STACK_SIZE
+#define CRTP_RX_TASK_STACKSIZE        (2 * configMINIMAL_STACK_SIZE)
+#define CRTP_RXTX_TASK_STACKSIZE      configMINIMAL_STACK_SIZE
+
+#define USBLINK_TASK_NAME       "USBLINK"
+#define USBLINK_TASK_PRI        3
+#define USBLINK_TASK_STACKSIZE  configMINIMAL_STACK_SIZE
+
 #ifdef __cplusplus
 }
 #endif

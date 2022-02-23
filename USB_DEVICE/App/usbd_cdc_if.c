@@ -23,7 +23,8 @@
 #include "usbd_cdc_if.h"
 
 /* USER CODE BEGIN INCLUDE */
-
+#include "crtp.h"
+#include "usblink.h"
 /* USER CODE END INCLUDE */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -32,7 +33,7 @@
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-
+static CRTPPacket p;
 /* USER CODE END PV */
 
 /** @addtogroup STM32_USB_OTG_DEVICE_LIBRARY
@@ -268,6 +269,10 @@ static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
   // guojun: test
   USBD_CDC_SetTxBuffer(&hUsbDeviceFS, Buf, *Len);
   USBD_CDC_TransmitPacket(&hUsbDeviceFS);
+
+  p.size = *Len - 1;
+  memcpy(&p.raw, Buf, *Len);
+  usblinkMessagePut(&p);
   return (USBD_OK);
   /* USER CODE END 6 */
 }
